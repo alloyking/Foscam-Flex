@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:SkinnablePopUpContainer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+						   xmlns:s="library://ns.adobe.com/flex/spark" 
+						   xmlns:mx="library://ns.adobe.com/flex/mx" width="800" height="400" backgroundColor="#000" backgroundAlpha="1">
+	
+	<fx:Script>
+		<![CDATA[
+			
+			protected function onDeactivateApp():void
+			{
+				NativeApplication.nativeApplication.exit();
+			}
+		]]>
+	</fx:Script>
+	
+	<s:layout>
+		<s:VerticalLayout horizontalAlign="center"/>
+	</s:layout>
+	
+	<s:VGroup width="100%" height="97" gap="20" horizontalAlign="center" paddingTop="20">
+	</s:VGroup>
+	<s:Group width="367" height="200">
+		<s:Rect width="100%" height="100%">
+			<s:stroke>
+				<s:SolidColorStroke color="0xffffff" weight="2"/>
+			</s:stroke>
+			<s:fill>
+				<s:SolidColor color="0x000000"/>
+			</s:fill>
+		</s:Rect>
+		
+		<s:Label x="40" y="30" fontSize="22" text="Unable to connect to camera."/>
+		<s:Button x="151" y="102" width="66" height="46" label="OK" click="onDeactivateApp();" color="#000"/>
+		
+	</s:Group>
+</s:SkinnablePopUpContainer>

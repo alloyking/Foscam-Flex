@@ -1,0 +1,32 @@
+/* CSS file */
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mobile "spark.skins.mobile.*";
+@namespace views "views.*";
+
+
+global
+{
+	
+	chrome-color: #e3dfdf;
+	color: #FBF7F7;
+	font-size: 19;
+	font-family: Arial;
+	content-background-color: #020202;
+}
+*
+{
+	fontSize: 9;
+}
+
+
+s|View
+{
+	
+backgroundColor: #000000;
+	
+}
+
+s|ActionBar{
+backgroundColor: #000000;
+	
+}

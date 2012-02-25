@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ViewNavigatorApplication xmlns:fx="http://ns.adobe.com/mxml/2009"
+							xmlns:s="library://ns.adobe.com/flex/spark"
+							initialize="init()"
+							frameRate="15"
+							splashScreenImage="@Embed('../bin-debug/assets/fosThor.png')"
+							splashScreenScaleMode="none"
+							splashScreenMinimumDisplayTime="4000">
+	<fx:Style source="FoscamFlex.css"/>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[
+			
+			
+			import flash.events.Event;
+			
+			import spark.transitions.CrossFadeViewTransition;
+			
+			import views.FoscamFlexHomeView;
+			
+			
+			
+			private var vid:MJPEG;
+			private var popError:popUpError = new popUpError();
+			private var conn:Connection = new Connection
+				
+			protected function init():void
+			{				
+				
+				NativeApplication.nativeApplication.addEventListener(Event.DEACTIVATE, onDeactivateApp);
+				navigator.defaultPushTransition = new CrossFadeViewTransition();
+				
+				beginVideo();								
+			}
+			
+			protected function beginVideo():void{
+				vid = new MJPEG(conn.httpUrl, conn.cgi, conn.port, conn.userName, conn.password);
+				vid.addEventListener("videoReady", vidEventListener);
+				vid.addEventListener("videoError", returnVideoError);
+			}
+			
+			
+			protected function onDeactivateApp(event:Event):void
+			{
+				//turn off IR when leaving
+				if(vid!= null){
+					var url:String = "http://"+conn.httpUrl+":"+conn.port+"/decoder_control.cgi?user="+conn.userName+"&pwd="+conn.password+"&command=94.html";
+					var request:URLRequest = new URLRequest(url);
+					
+					sendToURL(request);
+				}
+				NativeApplication.nativeApplication.exit();
+			}
+			
+			
+			protected function vidEventListener(e:Event):void{
+				vid.removeEventListener("videoError", returnVideoError);
+				vid.removeEventListener("videoReady", vidEventListener);
+				
+				navigator.pushView(FoscamFlexHomeView, vid);
+				popError = null;
+			
+			}
+			
+			protected function returnVideoError(e:Event):void{
+				//error message
+				popError.open(this,false);		
+				
+			}
+			
+		]]>
+	</fx:Script>
+	
+	
+</s:ViewNavigatorApplication>

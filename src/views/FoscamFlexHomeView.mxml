@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:s="library://ns.adobe.com/flex/spark" 
+		actionBarVisible="false" title="Cam" initialize="init1()" 
+		xmlns:mx="library://ns.adobe.com/flex/mx">
+	<s:layout>
+		<s:HorizontalLayout/>
+	</s:layout>
+	
+	
+	<fx:Script>
+		<![CDATA[
+			import flash.events.Event;
+			import flash.net.URLRequest;
+			import mx.events.FlexEvent;
+			import spark.components.ViewNavigator;
+			import spark.events.ViewNavigatorEvent;
+			
+			
+			private var vidData:MJPEG;
+			private var conn:Connection = new Connection();
+			
+			  protected function init1():void{	
+				  if (data != null) {
+					  vidData = data as MJPEG;
+					  	NativeApplication.nativeApplication.addEventListener( KeyboardEvent.KEY_DOWN, handleKeyDown );
+						container1.addChild(vidData);
+						container1.mouseEnabled = false;
+						autoIrOn();
+				  		}
+					}
+			
+			
+			protected function autoIrOn():void{
+				var url:String = "http://"+conn.httpUrl+":"+conn.port+"/decoder_control.cgi?user="+conn.userName+"&pwd="+conn.password+"&command=95.html";
+				var request:URLRequest = new URLRequest(url);
+				
+				sendToURL(request);
+			}
+			
+			protected function autoIrOff():void{
+				var url:String = "http://"+conn.httpUrl+":"+conn.port+"/decoder_control.cgi?user="+conn.userName+"&pwd="+conn.password+"&command=94.html";
+				var request:URLRequest = new URLRequest(url);
+				
+				sendToURL(request);
+			}
+			
+			
+			
+			//UP
+			protected function up_mouseDownHandler(event:MouseEvent):void
+			{
+				var url:String = "http://"+conn.httpUrl+":"+conn.port+"/decoder_control.cgi?user="+conn.userName+"&pwd="+conn.password+"&command=0.html";
+				var request:URLRequest = new URLRequest(url);
+				
+				sendToURL(request);
+			}
+			
+			protected function up_mouseUpHandler(event:MouseEvent):void
+			{
+				var url:String = "http://"+conn.httpUrl+":"+conn.port+"/decoder_control.cgi?user="+conn.userName+"&pwd="+conn.password+"&command=1.html";
+				var request:URLRequest = new URLRequest(url);
+				
+				sendToURL(request);	
+				
+			}
+			
+			
+			//DOWN
+			protected function down_mouseDownHandler(event:MouseEvent):void
+			{
+				var url:String = "http://"+conn.httpUrl+":"+conn.port+"/decoder_control.cgi?user="+conn.userName+"&pwd="+conn.password+"&command=2.html";
+				var request:URLRequest = new URLRequest(url);
+				
+				sendToURL(request);
+			}
+			
+			protected function down_mouseUpHandler(event:MouseEvent):void
+			{
+				var url:String = "http://"+conn.httpUrl+":"+conn.port+"/decoder_control.cgi?user="+conn.userName+"&pwd="+conn.password+"&command=3.html";
+				var request:URLRequest = new URLRequest(url);
+				
+				sendToURL(request);	
+				
+			}
+			
+			
+			//LEFT
+			protected function left_mouseDownHandler(event:MouseEvent):void
+			{
+				var url:String = "http://"+conn.httpUrl+":"+conn.port+"/decoder_control.cgi?user="+conn.userName+"&pwd="+conn.password+"&command=6.html";
+				var request:URLRequest = new URLRequest(url);
+				
+				sendToURL(request);
+			}
+			
+			protected function left_mouseUpHandler(event:MouseEvent):void
+			{
+				var url:String = "http://"+conn.httpUrl+":"+conn.port+"/decoder_control.cgi?user="+conn.userName+"&pwd="+conn.password+"&command=7.html";
+				var request:URLRequest = new URLRequest(url);
+				
+				sendToURL(request);	
+				
+			}
+			
+			
+			//RIGHT
+			protected function right_mouseDownHandler(event:MouseEvent):void
+			{
+				var url:String = "http://"+conn.httpUrl+":"+conn.port+"/decoder_control.cgi?user="+conn.userName+"&pwd="+conn.password+"&command=4.html";
+				var request:URLRequest = new URLRequest(url);
+				
+				sendToURL(request);
+			}
+			
+			protected function right_mouseUpHandler(event:MouseEvent):void
+			{
+				var url:String = "http://"+conn.httpUrl+":"+conn.port+"/decoder_control.cgi?user="+conn.userName+"&pwd="+conn.password+"&command=5.html";
+				var request:URLRequest = new URLRequest(url);
+				
+				sendToURL(request);	
+				
+			}
+			
+			
+			protected function handleKeyDown( e :KeyboardEvent ) :void
+			{
+				switch( e.keyCode )
+				{
+					case Keyboard.BACK:
+						NativeApplication.nativeApplication.exit();
+						autoIrOff();
+						break;
+					
+					case Keyboard.SEARCH:
+					case Keyboard.MENU:
+					
+						e.preventDefault();
+						break;
+				}
+			}
+			
+			
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:Group id="vid" width="80%" height="100%">
+		<s:VideoDisplay id="container1" height="100%" width="100%"/>
+	</s:Group>
+	<s:Group id="controls" width="20%" height="100%">
+		<s:Button id="up" y="118" width="50" height="50" fontSize="9" horizontalCenter="-3"
+				  mouseDown="up_mouseDownHandler(event)" mouseUp="up_mouseUpHandler(event)"/>
+		
+		<s:Button id="down" y="238" width="50" height="50" fontSize="9" horizontalCenter="-3"
+				  mouseDown="down_mouseDownHandler(event)" mouseUp="down_mouseUpHandler(event)" />
+		
+		<s:Button id="left" y="177" width="50" height="50" fontSize="9" horizontalCenter="-45"
+				  mouseDown="left_mouseDownHandler(event)" mouseUp="left_mouseUpHandler(event)" />
+		
+		
+		<s:Button id="right" y="177" width="50" height="50" fontSize="9" horizontalCenter="43"
+				  mouseDown="right_mouseDownHandler(event)" mouseUp="right_mouseUpHandler(event)"/>		
+	</s:Group>
+
+</s:View>
