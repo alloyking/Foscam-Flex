@@ -1,0 +1,19 @@
+ - Add your IP, video url, UserName and password to the connection class
+ - Published in Flex 4.6.  You can change the name space in app.xml to suite your needs.
+
+
+package
+{
+	public class Connection
+	{
+		public var httpUrl:String = "";  //yourIPDomain.com
+		public var cgi:String = "/videostream.cgi?resolution=32&"; //?resolution=32& optional
+		public var port:int = 8001;//your port
+		public var userName:String = ""; //username
+		public var password:String = ""; //password
+		
+		public function Connection()
+		{
+		}
+	}
+}
