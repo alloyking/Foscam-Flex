@@ -1,4 +1,7 @@
+ ++++++++++++++
  There is now an Ionic/Angular version of this app - https://github.com/alloyking/foscam-ionic
+ ==============
+ 
  
  - Add your IP, video url, UserName and password to the connection class
  - Published in Flex 4.6.  You can change the name space in app.xml to suite your needs.
